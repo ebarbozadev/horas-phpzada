@@ -14,13 +14,21 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credenciais = $request->only('email', 'senha');
+        // Validar os dados da requisição
+        $credentials = $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
 
-        if (Auth::attempt(['EMAIL' => $credenciais['email'], 'senha' => $credenciais['password']], $request->remember)) {
-            return redirect()->intended('painel');
+        // Tentar autenticar o usuário
+        if (Auth::attempt($credentials)) {
+            // Autenticação bem-sucedida
+            $request->session()->regenerate();
+            return response()->json(['message' => 'Login successful'], 200);
         }
 
-        return redirect()->back()->withErrors(['email' => 'Credenciais inválidas.']);
+        // Autenticação falhou
+        return response()->json(['message' => 'Invalid credentials'], 401);
     }
 
     public function logout(Request $request)
