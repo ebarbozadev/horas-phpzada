@@ -8,8 +8,8 @@ use App\Http\Controllers\AuthController;
 
 Route::post('/usuarios', [UsuarioController::class, 'store']);
 
-Route::prefix('painel')->group(function () {
-    Route::get('/', [PainelController::class, 'index'])->middleware('auth')->name('painel.index');
+Route::middleware('auth:sanctum')->prefix('painel')->group(function () {
+    Route::get('/', [PainelController::class, 'index'])->name('painel.index');
     Route::get('/cadastrar/empresa', [PainelController::class, 'empresaCadastrar'])->name('painel.cadastrar.empresa');
     Route::get('/editar/empresa/{id}', [PainelController::class, 'empresaEditar'])->name('painel.editar.empresa');
 
@@ -18,7 +18,7 @@ Route::prefix('painel')->group(function () {
 });
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [UsuarioController::class, 'login']);
+Route::post('/login', [UsuarioController::class, 'login'])->name('login');
 Route::get('/csrf-token', function () {
     return response()->json(['csrf_token' => csrf_token()]);
 });

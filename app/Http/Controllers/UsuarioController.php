@@ -7,9 +7,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
+
+use App\Models\User;
+use Laravel\Sanctum\PersonalAccessToken;
+
+
 
 class UsuarioController extends Controller
 {
+
+    use HasApiTokens;
+
     public function login(Request $request)
     {
         // Validar os dados da requisição
@@ -25,12 +36,19 @@ class UsuarioController extends Controller
             Auth::login($user);
             $request->session()->regenerate();
 
-            return redirect('/painel');
+            // Criar um token e retorná-lo na resposta
+            $token = $user->createToken('YourAppName')->plainTextToken;
+
+            return response()->json([
+                'token' => $token,
+            ]);
         }
 
         // Autenticação falhou
-        return response()->json(['message' => 'Invalid credentials'], 401);
+        return response()->json(['message' => 'Credenciais inválidas'], 401);
     }
+
+
 
     public function store(Request $request)
     {

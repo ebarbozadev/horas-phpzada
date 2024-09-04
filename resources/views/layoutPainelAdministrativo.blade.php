@@ -7,6 +7,9 @@
     <title>@yield('title') - Painel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="{{ asset('js/painel.js') }}" defer></script>
+    <script src="{{ asset('js/logout.js') }}" defer></script>
+
 
     <style>
         header {
@@ -56,7 +59,7 @@
                 <!-- Adicionar botão de logout -->
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button type="submit" class="logout-btn">
+                    <button id="logoutButton" type="submit" class="logout-btn">
                         Sair
                     </button>
                 </form>
