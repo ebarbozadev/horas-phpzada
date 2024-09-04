@@ -19,10 +19,13 @@ class UsuarioController extends Controller
         ]);
 
         // Tentar autenticar o usuário
-        if (Auth::attempt(['EMAIL' => $credentials['email'], 'SENHA' => $credentials['senha']])) {
-            // Autenticação bem-sucedida
+        $user = Usuario::where('EMAIL', $credentials['email'])->first();
+
+        if ($user && Hash::check($credentials['senha'], $user->SENHA)) {
+            Auth::login($user);
             $request->session()->regenerate();
-            return response()->json(['message' => 'Login successful'], 200);
+
+            return redirect('/painel');
         }
 
         // Autenticação falhou

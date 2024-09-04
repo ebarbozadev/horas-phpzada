@@ -65,16 +65,8 @@
 
             <div class="mb-3">
                 <label for="senha" class="form-label">Senha</label>
-                <input type="password" class="form-control" id="senha" name="senha"
-                    placeholder="Digite sua senha" required>
-            </div>
-
-            <div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="remember" name="remember">
-                    <label class="form-check-label" for="remember">Lembrar-me</label>
-                </div>
-                <a href="#" class="text-muted">Esqueceu sua senha?</a>
+                <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha"
+                    required>
             </div>
 
             <div class="d-grid mt-4">

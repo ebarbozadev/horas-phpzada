@@ -14,10 +14,19 @@ use App\Http\Controllers\AuthController;
 // });
 
 // Route::get('/sistema', [SistemaController::class, 'index'])->name('sistema.index');
-// Route::get('/painel', [PainelController::class, 'index'])->name('painel.index');
+Route::get('/painel', [PainelController::class, 'index'])->middleware('auth');
 
 Route::post('/usuarios', [UsuarioController::class, 'store']);
-Route::get('/empresas', [EmpresaController::class, 'index']);
+
+Route::prefix('painel')->group(function () {
+    Route::get('/', [PainelController::class, 'index'])->middleware('auth')->name('painel.index');
+    Route::get('/cadastrar/empresa', [PainelController::class, 'cadastrarEmpresa'])->name('painel.cadastrar.empresa');
+    Route::get('/editar/empresa/{id}', [EmpresaController::class, 'edit'])->name('painel.editar.empresa');
+    Route::post('/cadastrar/empresa', [EmpresaController::class, 'store'])->name('painel.empresa.store');
+    Route::post('/editar/empresa/{id}', [EmpresaController::class, 'update'])->name('painel.atualizar.empresa');
+});
+
+
 Route::post('/testes', [TesteController::class, 'store']);
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
