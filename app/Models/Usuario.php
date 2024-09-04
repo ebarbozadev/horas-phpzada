@@ -3,21 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable; // Altere para herdar de Authenticatable
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Usuario extends Authenticatable // Mudança de Model para Authenticatable
+class Usuario extends Authenticatable
 {
-    use HasFactory, Notifiable;
-
     protected $table = 'usuarios';
 
-    protected $fillable = ['NOME', 'EMAIL', 'ID_EMPRESA', 'SENHA'];
+    protected $fillable = [
+        'ID_EMPRESA',
+        'NOME',
+        'EMAIL',
+        'SENHA',
+        'ATIVO',
+    ];
 
-    protected $hidden = ['SENHA', 'remember_token'];
+    protected $hidden = [
+        'SENHA',
+    ];
 
-    public function setSenhaAttribute($value)
-    {
-        $this->attributes['SENHA'] = bcrypt($value);
-    }
+    public $timestamps = false;
 }

@@ -64,8 +64,8 @@
             </div>
 
             <div class="mb-3">
-                <label for="password" class="form-label">Senha</label>
-                <input type="password" class="form-control" id="password" name="password"
+                <label for="senha" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="senha" name="senha"
                     placeholder="Digite sua senha" required>
             </div>
 

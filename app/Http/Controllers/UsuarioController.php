@@ -15,11 +15,11 @@ class UsuarioController extends Controller
         // Validar os dados da requisição
         $credentials = $request->validate([
             'email' => 'required|string|email',
-            'password' => 'required|string',
+            'senha' => 'required|string',
         ]);
 
         // Tentar autenticar o usuário
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt(['EMAIL' => $credentials['email'], 'SENHA' => $credentials['senha']])) {
             // Autenticação bem-sucedida
             $request->session()->regenerate();
             return response()->json(['message' => 'Login successful'], 200);
@@ -31,24 +31,24 @@ class UsuarioController extends Controller
 
     public function store(Request $request)
     {
-        // Validar os dados da requisição
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:usuarios', // Corrigir para 'usuarios'
-            'password' => 'required|string|min:8|confirmed',
+        $validatedData = $request->validate([
+            'ID_EMPRESA' => 'required|integer',
+            'NOME' => 'required|string|max:255',
+            'EMAIL' => 'required|string|email|max:255|unique:usuarios',
+            'SENHA' => 'required|string|min:8',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
-
-        // Criar o usuário com a senha hasheada
         $user = Usuario::create([
-            'NOME' => $request->name, // Altere para corresponder ao campo correto
-            'EMAIL' => $request->email,
-            'SENHA' => Hash::make($request->password), // Hash da senha
+            'ID_EMPRESA' => $validatedData['ID_EMPRESA'],
+            'NOME' => $validatedData['NOME'],
+            'EMAIL' => $validatedData['EMAIL'],
+            'SENHA' => Hash::make($validatedData['SENHA']),
+            'ATIVO' => true,
         ]);
 
-        return response()->json(['message' => 'User created successfully', 'user' => $user], 201);
+        return response()->json([
+            'message' => 'Usuário criado com sucesso!',
+            'user' => $user,
+        ], 201);
     }
 }

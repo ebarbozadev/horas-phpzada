@@ -17,7 +17,7 @@ class AuthController extends Controller
         // Validar os dados da requisição
         $credentials = $request->validate([
             'email' => 'required|string|email',
-            'password' => 'required|string',
+            'senha' => 'required|string',
         ]);
 
         // Tentar autenticar o usuário
