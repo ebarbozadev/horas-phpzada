@@ -10,12 +10,17 @@ class PainelController extends Controller
     public function index()
     {
         $empresas = Empresa::all();
-
-        return view('empresaVisualizar', ['empresas' => $empresas]);
+        return view('empresa.empresaVisualizar', ['empresas' => $empresas]);
     }
 
-    public function cadastrarEmpresa()
+    public function empresaCadastrar()
     {
-        return view('empresaCadastrar');
+        return view('empresa.empresaCadastrar');
+    }
+
+    public function empresaEditar($id)
+    {
+        $empresa = Empresa::findOrFail($id);
+        return view('empresa.empresaEditar', compact('empresa'));
     }
 }

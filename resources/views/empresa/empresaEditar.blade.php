@@ -1,4 +1,4 @@
-@extends('layouts.Empresa.painel')
+@extends('layoutPainelAdministrativo')
 
 @section('title', 'Editar Empresa')
 
@@ -27,7 +27,7 @@
             <h1 class="login-title">Editar Empresa</h1>
             <form method="POST" action="{{ route('painel.atualizar.empresa', $empresa->id) }}">
                 @csrf
-                @method('POST') <!-- Laravel utiliza o método POST para atualizar por padrão -->
+                @method('PUT')
 
                 <div class="mb-3">
                     <label for="RAZAO_SOCIAL" class="form-label">Razão Social</label>

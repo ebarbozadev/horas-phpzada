@@ -1,4 +1,3 @@
-<!-- resources/views/layouts/painel.blade.php -->
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -27,6 +26,22 @@
         .container {
             display: flex;
             align-items: center;
+            justify-content: space-between;
+        }
+
+        .logout-btn {
+            background-color: #dc3545;
+            /* Botão vermelho para logout */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background-color: #c82333;
+            /* Tom mais escuro ao passar o mouse */
         }
     </style>
 </head>
@@ -38,6 +53,13 @@
                 <a href={{ url('/painel') }}>
                     <h1>Painel Administrativo</h1>
                 </a>
+                <!-- Adicionar botão de logout -->
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="logout-btn">
+                        Sair
+                    </button>
+                </form>
             </nav>
         </div>
     </header>

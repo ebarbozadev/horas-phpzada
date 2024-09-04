@@ -1,4 +1,4 @@
-@extends('layouts.Empresa.painel')
+@extends('layoutPainelAdministrativo')
 
 @section('title', 'Cadastrar Empresa')
 

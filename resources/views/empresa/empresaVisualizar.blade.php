@@ -1,5 +1,5 @@
 <!-- resources/views/painel.blade.php -->
-@extends('layouts.Empresa.painel')
+@extends('layoutPainelAdministrativo')
 
 @section('title', 'Painel - Empresas')
 

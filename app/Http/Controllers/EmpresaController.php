@@ -7,22 +7,6 @@ use App\Models\Empresa; // Certifique-se de que o nome do modelo está correto
 
 class EmpresaController extends Controller
 {
-    public function index()
-    {
-        $empresas = Empresa::all(); // Obtém todas as empresas
-        return view('painel', compact('empresas')); // Retorna a view de listagem
-    }
-
-    public function edit($id)
-    {
-        $empresa = Empresa::findOrFail($id); // Obtém a empresa pelo ID
-        return view('empresa.edit', compact('empresa')); // Retorna a view de edição com a empresa
-    }
-
-    public function create()
-    {
-        return view('empresa.create'); // Retorna a view de criação
-    }
 
     public function store(Request $request)
     {
@@ -39,6 +23,7 @@ class EmpresaController extends Controller
 
         return redirect()->route('painel.index')->with('success', 'Empresa cadastrada com sucesso!');
     }
+
 
     public function update(Request $request, $id)
     {
